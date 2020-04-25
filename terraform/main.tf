@@ -33,3 +33,36 @@ resource "azurerm_app_service_custom_hostname_binding" "tinfoilcontainers" {
     app_service_name    = "${var.container_prefix}-appservice"
     resource_group_name = "${var.resource_group}"
 }
+
+output "container_uid" {
+    value   = "${azurerm_app_service.tinfoilcontainers.id}"
+}
+
+output "container_name" {
+    value   = "${azurerm_app_service.tinfoilcontainers.name}"
+}
+
+output "subscription_id" {
+    value   = "${var.subscription_id}"
+}
+
+output "app_service_plan_name" {
+    value   = "${azurerm_app_service_plan.tinfoilcontainers.name}"
+}
+
+output "container_resource_group" {
+    value   = "${var.resource_group}"
+}
+
+resource "local_file" "ansible_vars" {
+    content = <<EOT
+---
+tf_container_hostname: ${azurerm_app_service.tinfoilcontainers.name}
+tf_container_uid: ${azurerm_app_service.tinfoilcontainers.id}
+tf_subscriptionid: "${var.subscription_id}"
+tf_container_app_service_plan_name: ${azurerm_app_service_plan.tinfoilcontainers.name}
+tf_container_resourcegroup: ${var.resource_group}
+...
+EOT
+    filename = "../ansible/ansible_vars.yml"
+}
