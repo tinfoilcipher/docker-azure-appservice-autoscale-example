@@ -18,7 +18,7 @@
           - time_aggregation: Average
             time_window: 10
             direction: Increase
-            metric_name: "CPU Percentage"
+            metric_name: 'CPU Percentage'
             metric_resource_uri: "{{ '/subscriptions/' + tf_subscriptionid + '/resourceGroups/' + tf_container_resourcegroup + '/providers/Microsoft.Web/serverfarms/' + tf_container_app_service_plan_name }}"
             value: '1'
             threshold: 70
