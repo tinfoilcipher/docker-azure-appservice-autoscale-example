@@ -1,7 +1,7 @@
 resource "azurerm_app_service_plan" "tinfoilcontainers" {
     name                = "${var.container_prefix}-asp"
-    location            = "${var.location}"
-    resource_group_name = "${var.resource_group}"
+    location            = var.location
+    resource_group_name = var.resource_group
     kind                = "Linux"
     reserved            = true
 
@@ -13,9 +13,9 @@ resource "azurerm_app_service_plan" "tinfoilcontainers" {
 
 resource "azurerm_app_service" "tinfoilcontainers" {
     name                = "${var.container_prefix}-appservice"
-    location            = "${var.location}"
-    resource_group_name = "${var.resource_group}"
-    app_service_plan_id = "${azurerm_app_service_plan.tinfoilcontainers.id}"
+    location            = var.location
+    resource_group_name = var.resource_group
+    app_service_plan_id = azurerm_app_service_plan.tinfoilcontainers.id
 
     site_config {
         app_command_line = ""
@@ -31,27 +31,27 @@ resource "azurerm_app_service" "tinfoilcontainers" {
 resource "azurerm_app_service_custom_hostname_binding" "tinfoilcontainers" {
     hostname            = "board.tinfoilcipher.co.uk"
     app_service_name    = "${var.container_prefix}-appservice"
-    resource_group_name = "${var.resource_group}"
+    resource_group_name = var.resource_group
 }
 
 output "container_uid" {
-    value   = "${azurerm_app_service.tinfoilcontainers.id}"
+    value   = azurerm_app_service.tinfoilcontainers.id
 }
 
 output "container_name" {
-    value   = "${azurerm_app_service.tinfoilcontainers.name}"
+    value   = azurerm_app_service.tinfoilcontainers.name
 }
 
 output "subscription_id" {
-    value   = "${var.subscription_id}"
+    value   = var.subscription_id
 }
 
 output "app_service_plan_name" {
-    value   = "${azurerm_app_service_plan.tinfoilcontainers.name}"
+    value   = azurerm_app_service_plan.tinfoilcontainers.name
 }
 
 output "container_resource_group" {
-    value   = "${var.resource_group}"
+    value   = var.resource_group
 }
 
 resource "local_file" "ansible_vars" {
