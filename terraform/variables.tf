@@ -4,20 +4,20 @@
 
 #--Primary Location
 variable "location" {
-    type        = "string"
+    type        = string
     description = "Primary Location"
     default      = "eastus"
 }
 
 #--Subscription
 variable "subscription_id" {
-    type        = "string"
+    type        = string
     description = "Subscription id"
 }
 
 #--Tenant
 variable "tenant_id" {
-    type        = "string"
+    type        = string
     description = "Tenant id"
 }
 
@@ -27,13 +27,13 @@ variable "tenant_id" {
 
 #--Service Principle AppID
 variable "client_id" {
-    type        = "string"
+    type        = string
     description = "Client id"
 }
 
 #--Service Principle Secret
 variable "client_secret" {
-    type        = "string"
+    type        = string
     description = "Client secret"
 }
 
